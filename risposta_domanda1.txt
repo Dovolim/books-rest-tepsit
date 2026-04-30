@@ -1,0 +1,30 @@
+============================================================
+  TEPSIT - Domanda 1: Reset dei dati nel server
+============================================================
+
+DOMANDA:
+Il server effettua mai un Reset dei dati?
+Quando avviene questo Reset e perché?
+
+RISPOSTA:
+Nella versione ORIGINALE della guida html.it (senza persistenza),
+il server effettua un reset IMPLICITO ogni volta che viene riavviato.
+
+Questo accade perché i dati vengono tenuti in una variabile statica
+Java (es. una List<Book> statica nella classe BookService).
+Le variabili statiche esistono solo nella JVM in esecuzione:
+quando il processo Jetty viene fermato e riavviato, la JVM
+ricrea tutte le classi da zero, e la lista riparte dai soli
+valori "hard-coded" nel codice sorgente, perdendo tutte le
+modifiche fatte via POST/PUT/DELETE durante la sessione precedente.
+
+In pratica: ogni riavvio del server = reset completo della lista.
+
+MODIFICA IMPLEMENTATA:
+Nel progetto consegnato questo problema è stato risolto usando
+la libreria Gson per salvare i dati su file JSON (books.json).
+- Il file viene creato al primo avvio con dati di esempio.
+- Viene aggiornato su disco dopo ogni modifica (POST/PUT/DELETE).
+- Viene riletto ad ogni avvio del server.
+Risultato: nessun reset involontario, i dati persistono tra
+un riavvio e l'altro.

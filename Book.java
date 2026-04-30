@@ -1,10 +1,4 @@
 package it.edu.marconipontedera.tepsit.rest.model;
-
-/**
- * Bean che rappresenta un Libro (Book).
- * Segue il pattern JavaBean con getter/setter per la serializzazione
- * automatica JSON tramite Jersey MOXy.
- */
 public class Book {
 
     private int id;
@@ -13,7 +7,7 @@ public class Book {
     private int year;
     private String isbn;
 
-    // Costruttore vuoto obbligatorio per la deserializzazione JSON
+    // Costruttore vuoto
     public Book() {}
 
     public Book(int id, String title, String author, int year, String isbn) {
